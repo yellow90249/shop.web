@@ -5,63 +5,30 @@
         <div class="col-xl-12">
           <div class="shop__content-area">
             <div class="shop__header d-sm-flex justify-content-between align-items-center mb-40">
-              <div class="shop__header-left">
-                <div class="show-text">
-                  <span
-                    >Showing 1–{{
-                      state.products.slice(pageStart, pageStart + countOfPage).length
-                    }}
-                    of {{ state.products.length }} results</span
-                  >
-                </div>
+              <!-- 商品名稱 -->
+              <div class="contact__input" style="width: 261px; margin-right: 24px">
+                <input
+                  v-model="search.productName"
+                  @keyup.enter="setProductList"
+                  style="height: 45px"
+                  type="text"
+                  placeholder="搜尋名稱"
+                />
               </div>
-              <div
-                class="shop__header-right d-flex align-items-center justify-content-between justify-content-sm-end"
-              >
-                <!-- sort-filtering -->
-                <sort-filtering />
-                <!-- sort-filtering -->
-                <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                  <li class="nav-item">
-                    <a
-                      class="nav-link active"
-                      id="pills-grid-tab"
-                      data-bs-toggle="pill"
-                      href="#pills-grid"
-                      role="tab"
-                      aria-controls="pills-grid"
-                      aria-selected="true"
-                      ><i class="fas fa-th"></i
-                    ></a>
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link"
-                      id="pills-list-tab"
-                      data-bs-toggle="pill"
-                      href="#pills-list"
-                      role="tab"
-                      aria-controls="pills-list"
-                      aria-selected="false"
-                      ><i class="fas fa-list-ul"></i
-                    ></a>
-                  </li>
-                </ul>
+
+              <!-- 種類 -->
+              <div class="product__modal-input special-select size" style="margin-right: auto">
+                <select v-model="search.categoryId" @input="changeCategoryHandler" style="width: 261px">
+                  <option :value="0">全種類</option>
+                  <option v-for="item in categoryList" :value="item.ID">{{ item.Name }}</option>
+                </select>
               </div>
             </div>
             <div class="tab-content" id="pills-tabContent">
-              <div
-                class="tab-pane fade show active"
-                id="pills-grid"
-                role="tabpanel"
-                aria-labelledby="pills-grid-tab"
-              >
+              <div class="tab-pane fade show active" id="pills-grid" role="tabpanel" aria-labelledby="pills-grid-tab">
                 <div class="row custom-row-10">
                   <div
-                    v-for="(item, i) in state.filterProducts.slice(
-                      pageStart,
-                      pageStart + countOfPage
-                    )"
+                    v-for="(item, i) in productList"
                     :key="i"
                     class="col-xl-3 col-lg-3 col-md-6 col-sm-6 custom-col-10"
                   >
@@ -69,28 +36,14 @@
                   </div>
                 </div>
               </div>
-              <div
-                class="tab-pane fade"
-                id="pills-list"
-                role="tabpanel"
-                aria-labelledby="pills-list-tab"
-              >
-                <product-list-item
-                  v-for="(item, i) in state.filterProducts.slice(
-                    pageStart,
-                    pageStart + countOfPage
-                  )"
-                  :key="i"
-                  :item="item"
-                />
-              </div>
             </div>
             <div class="row mt-40">
               <div class="col-xl-12">
                 <pagination
-                  :items="state.products"
-                  :count-of-page="12"
-                  @paginatedData="paginatedData"
+                  @change-curr-page="changeCurrPageHandler"
+                  :total-rows="totalRows"
+                  :per-page="search.perPage"
+                  :curr-page="search.currentPage"
                 />
               </div>
             </div>
@@ -101,33 +54,80 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import SortFiltering from './filter-widget/SortFiltering.vue';
+<script setup lang="ts">
 import { useProductsStore } from '../../store/useProducts';
 import ProductItem from '../products/ProductItem.vue';
-import ProductListItem from '../products/ProductListItem.vue';
 import Pagination from '../../ui/Pagination.vue';
+import { getCategoryListAPI, getProductListAPI } from '../../api';
 
-export default defineComponent({
-  components: { SortFiltering, ProductItem, ProductListItem, Pagination },
-  data() {
-    return {
-      filteredRows: [],
-      pageStart: 0 as number,
-      countOfPage: 12 as number,
-    };
-  },
-  methods: {
-    paginatedData(filteredRows: [], pageStart: number, countOfPage: number) {
-      this.filteredRows = filteredRows;
-      this.pageStart = pageStart;
-      this.countOfPage = countOfPage;
-    },
-  },
-  setup() {
-    const state = useProductsStore();
-    return { state };
-  },
+interface Category {
+  ID: number;
+  Name: string;
+  Description: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+}
+
+interface Product {
+  ID: number;
+  CategoryID: number;
+  Name: string;
+  Description: string;
+  Price: number;
+  StockQuantity: number;
+  ImageURL: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+  Category: Category;
+}
+
+// 搜尋
+const search = ref({
+  productName: '',
+  categoryId: 0,
+  perPage: 12,
+  currentPage: 1,
+});
+const totalRows = ref(0);
+const categoryList = ref<Category[]>([]);
+const productList = ref<Product[]>([]);
+
+async function setCategoryList() {
+  const res = await getCategoryListAPI();
+  categoryList.value = res?.List;
+}
+
+async function setProductList() {
+  const res = await getProductListAPI({
+    currentPage: search.value.currentPage,
+    perPage: search.value.perPage,
+    name: search.value.productName,
+    categoryId: search.value.categoryId,
+  });
+  productList.value = res.List;
+  totalRows.value = res.Total;
+  console.log('🚀 ~ setProductList ~ productList.value:', productList.value);
+}
+
+async function changeCategoryHandler(event: Event) {
+  const target = event.target as HTMLSelectElement;
+  search.value.categoryId = Number(target.value);
+  await setProductList();
+}
+
+async function changeCurrPageHandler(page: number) {
+  search.value.currentPage = page;
+  await setProductList();
+}
+
+onBeforeMount(async () => {
+  await setCategoryList();
+  await setProductList();
 });
 </script>
+
+<style>
+.special-select::after {
+  top: 26%;
+}
+</style>

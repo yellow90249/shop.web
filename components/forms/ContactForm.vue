@@ -39,9 +39,7 @@
     <div class="row">
       <div class="col-xl-12">
         <div class="contact__submit">
-          <button type="submit" class="os-btn os-btn-black">
-            Send Message
-          </button>
+          <button type="submit" class="os-btn os-btn-black">Send Message</button>
         </div>
       </div>
     </div>
@@ -49,23 +47,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { Field, Form, ErrorMessage, } from "vee-validate";
-import * as yup from "yup";
+import { defineComponent } from 'vue';
+import { Field, Form, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
 
 export default defineComponent({
   components: { Field, Form, ErrorMessage },
   setup() {
     const schema = yup.object({
-      name: yup.string().required().label("Name"),
-      email: yup.string().required().email().label("Email"),
-      subject: yup.string().required().min(10).label("Subject"),
-      msg: yup.string().required().min(20).label("Message"),
+      name: yup.string().required().label('Name'),
+      email: yup.string().required().email().label('Email'),
+      subject: yup.string().required().min(10).label('Subject'),
+      msg: yup.string().required().min(20).label('Message'),
     });
 
-    function onSubmit(values: object,{resetForm}: {resetForm: () => void}) {
+    function onSubmit(values: object, { resetForm }: { resetForm: () => void }) {
       alert(JSON.stringify(values, null, 2));
-      resetForm()
+      resetForm();
     }
     return { schema, onSubmit };
   },

@@ -1,15 +1,15 @@
 <template>
   <layout :transparent="true">
-    <breadcrumb-area title="Contact" subtitle="Contact"/>
-    <contact-area/>
+    <breadcrumb-area title="Contact" subtitle="Contact" />
+    <contact-area />
   </layout>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import Layout from "../layout/Layout.vue";
-import BreadcrumbArea from "../components/common/breadcrumb/BreadcrumbArea.vue";
-import ContactArea from "../components/contact/ContactArea.vue";
+import { defineComponent } from 'vue';
+import Layout from '../layout/Layout.vue';
+import BreadcrumbArea from '../components/common/breadcrumb/BreadcrumbArea.vue';
+import ContactArea from '../components/contact/ContactArea.vue';
 
 export default defineComponent({
   components: {
@@ -19,7 +19,7 @@ export default defineComponent({
   },
   setup() {
     useHead({
-      title: "Contact - outStock",
+      title: 'Contact - outStock',
     });
   },
 });

@@ -5,22 +5,12 @@
   </layout>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import Layout from '../layout/Layout.vue';
 import BreadcrumbArea from '../components/common/breadcrumb/BreadcrumbArea.vue';
 import ShopFourCol from '../components/shop/ShopFourCol.vue';
 
-export default defineComponent({
-  components: {
-    Layout,
-    BreadcrumbArea,
-    ShopFourCol,
-  },
-  setup() {
-    useHead({
-      title: 'Shop 4 Column - outStock',
-    });
-  },
+useHead({
+  title: '商品',
 });
 </script>
