@@ -1,16 +1,12 @@
 <template>
   <div class="sidebar__widget mb-55">
     <div class="sidebar__widget-title mb-25">
-      <h3>Product Categories</h3>
+      <h3>商品種類</h3>
     </div>
     <div class="sidebar__widget-content">
       <div class="categories">
         <div id="accordion">
-          <div
-            class="card"
-            v-for="(item, i) in categories"
-            :key="item.id"
-          >
+          <div class="card" v-for="(item, i) in categories" :key="item.id">
             <div class="card-header white-bg" id="cloth">
               <h5 class="mb-0">
                 <button
@@ -40,9 +36,7 @@
                       <a
                         @click.prevent="state.handleCategory(list)"
                         href="#"
-                        :class="`text-capitalize ${
-                          state.activeCls === list ? 'active' : ''
-                        }`"
+                        :class="`text-capitalize ${state.activeCls === list ? 'active' : ''}`"
                       >
                         {{ list.toLowerCase() }}
                       </a>
@@ -59,9 +53,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import category_data from "../../../data/category-data";
-import { useProductsStore } from "../../../store/useProducts";
+import { defineComponent } from 'vue';
+import category_data from '../../../data/category-data';
+import { useProductsStore } from '../../../store/useProducts';
 
 export default defineComponent({
   setup() {
@@ -69,12 +63,11 @@ export default defineComponent({
     const categories = [
       ...new Set(
         category_data.filter(
-          (arr, index, self) =>
-            index === self.findIndex((t) => t.parentTitle === arr.parentTitle)
+          (arr, index, self) => index === self.findIndex((t) => t.parentTitle === arr.parentTitle)
         )
       ),
     ];
-    return { state,categories };
+    return { state, categories };
   },
 });
 </script>

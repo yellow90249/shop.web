@@ -1,15 +1,15 @@
 <template>
   <layout :transparent="true">
-    <breadcrumb-area title="Shop" subtitle="Shop"/>
-    <shop-four-col/>
+    <breadcrumb-area title="Shop" subtitle="Shop" />
+    <shop-four-col />
   </layout>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import Layout from "../layout/Layout.vue";
-import BreadcrumbArea from "../components/common/breadcrumb/BreadcrumbArea.vue";
-import ShopFourCol from "../components/shop/ShopFourCol.vue";
+import { defineComponent } from 'vue';
+import Layout from '../layout/Layout.vue';
+import BreadcrumbArea from '../components/common/breadcrumb/BreadcrumbArea.vue';
+import ShopFourCol from '../components/shop/ShopFourCol.vue';
 
 export default defineComponent({
   components: {
@@ -19,7 +19,7 @@ export default defineComponent({
   },
   setup() {
     useHead({
-      title: "Shop 4 Column - outStock",
+      title: 'Shop 4 Column - outStock',
     });
   },
 });
