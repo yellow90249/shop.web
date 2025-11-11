@@ -86,7 +86,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type PropType } from 'vue';
 import { type ProductType } from '../../types/productType';
 import ProductDetailsContent from './ProductDetailsContent.vue';
 import ProductDetailsReview from './ProductDetailsReview.vue';

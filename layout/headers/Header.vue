@@ -51,57 +51,41 @@
   </client-only>
 </template>
 
-<script lang="ts">
-// external
-import { defineComponent } from 'vue';
-import { useCartStore } from '~~/store/useCart';
-// internal
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+import { useCartStore } from '../../store/useCart';
 import Menus from './Menus.vue';
 import CartMini from './header-com/CartMini.vue';
-import SearchPopup from '~~/components/common/modals/SearchPopup.vue';
-import OffCanvas from '~~/components/common/sidebar/OffCanvas.vue';
+import OffCanvas from '../../components/common/sidebar/OffCanvas.vue';
 
-interface OffCanvasComponentRef {
-  OpenOffcanvas(): void;
+interface Props {
+  white_bg?: boolean;
+  transparent?: boolean;
 }
 
-export default defineComponent({
-  components: { Menus, CartMini, SearchPopup, OffCanvas },
-  props: {
-    white_bg: {
-      type: Boolean,
-      default: false,
-    },
-    transparent: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      isSticky: false,
-      showSearch: false,
-    };
-  },
-  methods: {
-    handleSticky() {
-      if (window.scrollY > 80) {
-        this.isSticky = true;
-      } else {
-        this.isSticky = false;
-      }
-    },
-    handleOffcanvas() {
-      const offCanvas = this.$refs.offcanvas as OffCanvasComponentRef;
-      offCanvas.OpenOffcanvas();
-    },
-  },
-  setup() {
-    const state = useCartStore();
-    return { state };
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handleSticky);
-  },
+const props = withDefaults(defineProps<Props>(), {
+  white_bg: false,
+  transparent: false,
+});
+
+const state = useCartStore();
+const isSticky = ref(false);
+const showSearch = ref(false);
+const offcanvas = ref<InstanceType<typeof OffCanvas>>();
+
+const handleSticky = () => {
+  isSticky.value = window.scrollY > 80;
+};
+
+const handleOffcanvas = () => {
+  offcanvas.value?.OpenOffcanvas();
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleSticky);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleSticky);
 });
 </script>

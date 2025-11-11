@@ -40,20 +40,13 @@
           </div>
           <div class="product-quantity">
             <div class="cart-plus-minus">
-              <input type="text" v-model="state.orderQuantity" />
-              <div
-                @click="state.orderQuantity > 1 ? state.orderQuantity-- : (state.orderQuantity = 1)"
-                class="dec qtybutton"
-              >
-                -
-              </div>
-              <div @click="state.orderQuantity++" class="inc qtybutton">+</div>
+              <input type="text" />
+              <div class="dec qtybutton">-</div>
+              <div class="inc qtybutton">+</div>
             </div>
           </div>
           <div class="pro-cart-btn ml-20">
-            <a @click.prevent="state.add_cart_product(product)" href="#" class="os-btn os-btn-black os-btn-3 mr-10"
-              >+ Add to Cart</a
-            >
+            <a @click.prevent="addProductToCart" href="#" class="os-btn os-btn-black os-btn-3 mr-10">+ Add to Cart</a>
           </div>
         </div>
       </form>
@@ -64,6 +57,7 @@
 <script setup lang="ts">
 import type { ProductType } from '../../types/productType';
 import { useCartStore } from '../../store/useCart';
+import { addProductToCartAPI } from '../../api';
 
 interface Props {
   product: ProductType;
@@ -74,5 +68,8 @@ const props = withDefaults(defineProps<Props>(), {
   style_2: false,
 });
 
-const state = useCartStore();
+async function addProductToCart() {
+  const res = await addProductToCartAPI();
+  console.log('🚀 ~ addProductToCart ~ res:', res);
+}
 </script>

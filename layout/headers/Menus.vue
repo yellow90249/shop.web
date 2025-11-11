@@ -1,30 +1,39 @@
 <template>
   <ul>
-    <li
-      v-for="(item, index) in menuData"
-      :key="index"
-      :class="`${
-        item.hasDropdown && !item.megamenu ? 'active' : item.megamenu && 'mega-menu'
-      }`"
-    >
-      <nuxt-link :href="`${item.link}`">{{ item.title }}</nuxt-link>
+    <li>
+      <nuxt-link href="/">主頁</nuxt-link>
+    </li>
+    <li>
+      <nuxt-link href="/shop-4-col">商品</nuxt-link>
+    </li>
+    <li>
+      <nuxt-link href="/account">我的帳戶</nuxt-link>
+    </li>
+    <li>
+      <nuxt-link href="/login">登入</nuxt-link>
     </li>
   </ul>
 </template>
 
-<script lang="ts">
-import bg from '~/assets/img/bg/mega-menu-bg.jpg';
-
-import { defineComponent } from 'vue';
-import menuData from '../../mixins/menuData';
-
-export default defineComponent({
-  mixins: [menuData],
-  data() {
-    return {
-      bg,
-    };
+<script setup lang="ts">
+const menuData = [
+  {
+    link: '/',
+    title: '主頁',
+    hasDropdown: true,
+    megamenu: true,
   },
-  setup() {},
-});
+  {
+    link: '/shop-4-col',
+    title: '商品',
+    hasDropdown: true,
+    megamenu: true,
+  },
+  {
+    link: '/account',
+    title: '我的帳戶',
+    hasDropdown: true,
+    megamenu: true,
+  },
+];
 </script>

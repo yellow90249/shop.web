@@ -18,3 +18,7 @@ export async function getProductListAPI(payload: {
 export async function getProductAPI(productId: number): Promise<ProductType> {
   return await $fetch(`/api/products/${productId}`);
 }
+
+export async function addProductToCartAPI() {
+  return await $fetch(`/api/carts`, { method: 'POST' });
+}
