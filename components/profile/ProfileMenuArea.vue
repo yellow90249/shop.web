@@ -30,7 +30,7 @@
                 >
                   <i class="fa fa-file"></i>訂單
                 </button>
-                <button class="nav-link"><i class="fa fa-sign-out"></i> 登出</button>
+                <button @click="logout" class="nav-link"><i class="fa fa-sign-out"></i> 登出</button>
               </div>
             </div>
           </div>
@@ -142,6 +142,17 @@
 <script setup lang="ts">
 import ProfileEditModal from '../common/modals/ProfileEditModal.vue';
 import ChangePasswordForm from '../forms/ChangePasswordForm.vue';
-import { globalUserState } from '../../store/globalState';
 import { formatDateTime } from '../../utils';
+import { logoutAPI } from '../../api';
+import { toast } from 'vue3-toastify';
+import { globalUserState, clearGlobalUserState } from '../../store/globalState';
+
+const router = useRouter();
+
+async function logout() {
+  const res = await logoutAPI();
+  clearGlobalUserState();
+  await router.push('/shop');
+  toast.success('登出成功');
+}
 </script>

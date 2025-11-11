@@ -19,3 +19,17 @@ export async function setGlobalUserState() {
     globalUserState.value = user;
   }
 }
+
+export async function clearGlobalUserState() {
+  globalUserState.value = {
+    ID: 0,
+    Email: '',
+    Name: '',
+    Password: '',
+    AvatarURL: '',
+    Role: '',
+    CreatedAt: '',
+    UpdatedAt: '',
+    CartItems: [],
+  };
+}

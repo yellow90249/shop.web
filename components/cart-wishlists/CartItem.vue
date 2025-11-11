@@ -1,34 +1,27 @@
 <template>
   <tr>
     <td class="product-thumbnail">
-      <nuxt-link :href="`/product-details/${item.id}`">
-        <img :src="item.img" alt="" />
+      <nuxt-link :href="`/product-details/${item.ID}`">
+        <img :src="`http://localhost:7777/${item.Product.ImageURL}`" alt="" />
       </nuxt-link>
     </td>
     <td class="product-name">
-      <nuxt-link :href="`/product-details/${item.id}`">
-        <span v-html="item.title"></span>
+      <nuxt-link :href="`/product-details/${item.ID}`">
+        <span v-html="item.Product.Name"></span>
       </nuxt-link>
     </td>
     <td class="product-price">
-      <span class="amount">${{ item.price }}</span>
+      <span class="amount">${{ item.Product.Price?.toLocaleString() }}</span>
     </td>
     <td class="product-quantity">
       <div class="cart-plus-minus">
-        <input type="text" v-model="item.orderQuantity" />
-        <div @click="state.quantityDecrement(item)" class="dec qtybutton">
-          -
-        </div>
+        <input type="text" v-model="item.Quantity" />
+        <div @click="state.quantityDecrement(item)" class="dec qtybutton">-</div>
         <div @click="state.add_cart_product(item)" class="inc qtybutton">+</div>
       </div>
     </td>
     <td class="product-subtotal">
-      <span class="amount"
-        >${{
-          typeof item.orderQuantity !== "undefined" &&
-          item.price * item.orderQuantity
-        }}</span
-      >
+      <span class="amount">${{ (item.Product.Price * item.Quantity)?.toLocaleString() }}</span>
     </td>
     <td class="product-remove" @click.prevent="state.remover_cart_products(item)">
       <a href="#">
@@ -38,22 +31,13 @@
   </tr>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from "vue";
-import {type ProductType} from '../../types/productType';
-import { useCartStore } from "../../store/useCart";
+<script setup lang="ts">
+import type { CartItem } from '../../types/productType';
+import { useCartStore } from '../../store/useCart';
 
-export default defineComponent({
-  props: {
-    item: {
-      type: Object as PropType<ProductType>,
-      default: {},
-      required: true,
-    },
-  },
-  setup() {
-    const state = useCartStore();
-    return { state };
-  },
-});
+defineProps<{
+  item: CartItem;
+}>();
+
+const state = useCartStore();
 </script>
