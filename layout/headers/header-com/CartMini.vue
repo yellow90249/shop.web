@@ -1,6 +1,10 @@
 <template>
   <div class="mini-cart">
-    <div v-if="globalUserState.ID == 0">登入</div>
+    <div v-if="globalUserState.ID == 0">
+      <div class="checkout-link">
+        <nuxt-link href="/login" class="os-btn">請先登入</nuxt-link>
+      </div>
+    </div>
     <div v-else>
       <div v-if="globalUserState.CartItems.length === 0">
         <h5>你的購物車是空的</h5>
