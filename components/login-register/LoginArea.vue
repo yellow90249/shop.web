@@ -20,11 +20,15 @@
 <script setup lang="ts">
 import { loginAPI } from '../../api';
 import { toast } from 'vue3-toastify';
+import { setGlobalUserState } from '../../store/globalState';
 
 async function login(Email: string, Password: string) {
   try {
     const res = await loginAPI({ Email, Password });
     toast.success(`${res.Name}登入成功`);
-  } catch (err) {}
+    await setGlobalUserState();
+  } catch (err) {
+    toast.error(String(err));
+  }
 }
 </script>

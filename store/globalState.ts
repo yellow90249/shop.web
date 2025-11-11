@@ -1,4 +1,5 @@
-import type { User, CartItem } from '../types/productType';
+import type { User } from '../types/productType';
+import { getUserAPI } from '../api';
 
 export const globalUserState = ref<User>({
   ID: 0,
@@ -11,3 +12,10 @@ export const globalUserState = ref<User>({
   UpdatedAt: '',
   CartItems: [],
 });
+
+export async function setGlobalUserState() {
+  const user = await getUserAPI();
+  if (user.ID) {
+    globalUserState.value = user;
+  }
+}

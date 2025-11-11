@@ -6,7 +6,11 @@
           <div class="col-xxl-6 col-md-6">
             <div class="profile__basic d-md-flex align-items-center">
               <div class="profile__basic-thumb mr-30">
-                <img v-if="globalUserState.AvatarURL" :src="`http://localhost:7777/${globalUserState.AvatarURL}`" alt="" />
+                <img
+                  v-if="globalUserState.AvatarURL"
+                  :src="`http://localhost:7777/${globalUserState.AvatarURL}`"
+                  alt=""
+                />
               </div>
               <div class="profile__basic-content">
                 <h3 class="profile__basic-title">

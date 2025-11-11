@@ -24,14 +24,13 @@
 <script setup lang="ts">
 import { type ProductType } from '../../types/productType';
 import { addCartItemAPI } from '../../api';
-import { globalUserState } from '../../store/globalState';
-import { getUserAPI } from '../../api';
+import { setGlobalUserState } from '../../store/globalState';
 
 defineProps<{ item: ProductType }>();
 
 async function addCartItem(product: ProductType) {
   const res = await addCartItemAPI({ ProductID: product.ID, Quantity: 1, UnitPrice: product.Price });
   console.log('🚀 ~ addCartItem ~ res:', res);
-  globalUserState.value = await getUserAPI();
+  await setGlobalUserState();
 }
 </script>

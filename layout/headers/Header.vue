@@ -28,9 +28,9 @@
                 <div class="header__action">
                   <ul>
                     <li>
-                      <a href="#" class="cart"
-                        ><i class="ion-bag"></i> 購物車
-                        <span>({{ globalUserState.CartItems.length }})</span>
+                      <a href="#" class="cart">
+                        <i class="ion-bag"></i> 購物車
+                        <span v-if="globalUserState.ID != 0">({{ globalUserState.CartItems.length }})</span>
                       </a>
                       <!-- cart mini start -->
                       <cart-mini />
@@ -56,8 +56,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import Menus from './Menus.vue';
 import CartMini from './header-com/CartMini.vue';
 import OffCanvas from '../../components/common/sidebar/OffCanvas.vue';
-import { getUserAPI } from '../../api';
-import { globalUserState } from '../../store/globalState';
+import { globalUserState, setGlobalUserState } from '../../store/globalState';
 
 interface Props {
   white_bg?: boolean;
@@ -80,19 +79,12 @@ const handleOffcanvas = () => {
   offcanvas.value?.OpenOffcanvas();
 };
 
-onMounted(() => {
+onMounted(async () => {
   window.addEventListener('scroll', handleSticky);
+  await setGlobalUserState();
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleSticky);
-});
-
-async function setGlobalUserState() {
-  globalUserState.value = await getUserAPI();
-}
-
-onBeforeMount(async () => {
-  await setGlobalUserState();
 });
 </script>
