@@ -55,7 +55,6 @@
 </template>
 
 <script setup lang="ts">
-import { useProductsStore } from '../../store/useProducts';
 import ProductItem from '../products/ProductItem.vue';
 import Pagination from '../../ui/Pagination.vue';
 import { getCategoryListAPI, getProductListAPI } from '../../api';

@@ -26,3 +26,11 @@ export async function addProductToCartAPI() {
 export async function loginAPI(payload: { Email: string; Password: string }): Promise<User> {
   return await $fetch(`/api/login`, { method: 'POST', body: payload });
 }
+
+export async function addCartItemAPI(payload: { ProductID: number; Quantity: number; UnitPrice: number }) {
+  return await $fetch(`/api/cart/items`, { method: 'POST', body: payload });
+}
+
+export async function getUserAPI(): Promise<User> {
+  return await $fetch(`/api/me`);
+}

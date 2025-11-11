@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="add-cart p-absolute transition-3">
-        <a @click.prevent="store.add_cart_product(item)" href="#">+ Add to Cart</a>
+        <a @click.prevent="addCartItem(item)" style="cursor: pointer">+ 加入購物車</a>
       </div>
     </div>
   </div>
@@ -23,10 +23,12 @@
 
 <script setup lang="ts">
 import { type ProductType } from '../../types/productType';
-import { useCartStore } from '../../store/useCart';
+import { addCartItemAPI } from '../../api';
 
-defineProps<{
-  item: ProductType;
-}>();
-const store = useCartStore();
+defineProps<{ item: ProductType }>();
+
+async function addCartItem(product: ProductType) {
+  const res = await addCartItemAPI({ ProductID: product.ID, Quantity: 1, UnitPrice: product.Price });
+  console.log('🚀 ~ addCartItem ~ res:', res);
+}
 </script>

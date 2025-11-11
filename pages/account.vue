@@ -1,29 +1,38 @@
 <template>
   <layout :transparent="true">
-    <breadcrumb-area title="Account" subtitle="Account"/>
-    <profile-area/>
-    <profile-menu-area/>
+    <breadcrumb-area title="我的帳戶" subtitle="我的帳戶" />
+    <profile-area :user="user" />
+    <!-- <profile-menu-area /> -->
   </layout>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import Layout from "../layout/Layout.vue";
-import BreadcrumbArea from "../components/common/breadcrumb/BreadcrumbArea.vue";
-import ProfileArea from "../components/profile/ProfileArea.vue";
-import ProfileMenuArea from "../components/profile/ProfileMenuArea.vue";
+<script setup lang="ts">
+import Layout from '../layout/Layout.vue';
+import BreadcrumbArea from '../components/common/breadcrumb/BreadcrumbArea.vue';
+import ProfileArea from '../components/profile/ProfileArea.vue';
+import ProfileMenuArea from '../components/profile/ProfileMenuArea.vue';
+import { getUserAPI } from '../api';
+import type { User } from '../types/productType';
 
-export default defineComponent({
-  components: {
-    Layout,
-    BreadcrumbArea,
-    ProfileArea,
-    ProfileMenuArea,
-  },
-  setup() {
-    useHead({
-      title: "Account",
-    });
-  },
+useHead({
+  title: '我的帳戶',
+});
+
+const user = ref<User>({
+  ID: 0,
+  Email: '',
+  Name: '',
+  Password: '',
+  AvatarURL: '',
+  Role: '',
+  CreatedAt: '',
+  UpdatedAt: '',
+  CartItems: [],
+});
+
+onBeforeMount(async () => {
+  const res = await getUserAPI();
+  console.log('🚀 ~ res:', res);
+  user.value = res;
 });
 </script>

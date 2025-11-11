@@ -1,5 +1,3 @@
-import { string } from 'yup';
-
 export interface Category {
   ID: number;
   Name: string;
@@ -20,6 +18,16 @@ export interface ProductType {
   Category: Category;
 }
 
+export interface CartItem {
+  ID: number;
+  UserID: number;
+  ProductID: number;
+  Quantity: number;
+  UnitPrice: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+}
+
 export interface User {
   ID: number;
   Email: string;
@@ -29,4 +37,5 @@ export interface User {
   Role: string;
   CreatedAt: string;
   UpdatedAt: string;
+  CartItems: CartItem[];
 }
