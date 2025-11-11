@@ -26,6 +26,7 @@ export interface CartItem {
   UnitPrice: number;
   CreatedAt: string;
   UpdatedAt: string;
+  Product: ProductType;
 }
 
 export interface User {

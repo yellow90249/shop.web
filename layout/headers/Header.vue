@@ -29,11 +29,11 @@
                   <ul>
                     <li>
                       <a href="#" class="cart"
-                        ><i class="ion-bag"></i> Cart
-                        <span>({{ state.totalPriceQuantity.quantity }})</span>
+                        ><i class="ion-bag"></i> 購物車
+                        <span>({{ user.CartItems.length }})</span>
                       </a>
                       <!-- cart mini start -->
-                      <cart-mini />
+                      <cart-mini :cart-items="user.CartItems" />
                       <!-- cart mini end -->
                     </li>
                   </ul>
@@ -57,6 +57,8 @@ import { useCartStore } from '../../store/useCart';
 import Menus from './Menus.vue';
 import CartMini from './header-com/CartMini.vue';
 import OffCanvas from '../../components/common/sidebar/OffCanvas.vue';
+import { getUserAPI } from '../../api';
+import type { User } from '../../types/productType';
 
 interface Props {
   white_bg?: boolean;
@@ -71,6 +73,17 @@ withDefaults(defineProps<Props>(), {
 const state = useCartStore();
 const isSticky = ref(false);
 const offcanvas = ref<InstanceType<typeof OffCanvas>>();
+const user = ref<User>({
+  ID: 0,
+  Email: '',
+  Name: '',
+  Password: '',
+  AvatarURL: '',
+  Role: '',
+  CreatedAt: '',
+  UpdatedAt: '',
+  CartItems: [],
+});
 
 const handleSticky = () => {
   isSticky.value = window.scrollY > 80;
@@ -86,5 +99,10 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleSticky);
+});
+
+onBeforeMount(async () => {
+  const res = await getUserAPI();
+  user.value = res;
 });
 </script>
