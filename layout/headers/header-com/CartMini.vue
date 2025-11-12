@@ -64,6 +64,7 @@ import { globalUserState, setGlobalUserState } from '../../../store/globalState'
 const total = computed(() => {
   return globalUserState.value.CartItems.reduce((sum, item) => sum + item.UnitPrice * item.Quantity, 0);
 });
+
 async function deleteCartItem(cartItemId: number) {
   const res = await deleteCartItemAPI(cartItemId);
   console.log('🚀 ~ deleteCartItem ~ res:', res);

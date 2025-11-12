@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="pro-cart-btn ml-20">
-            <a @click.prevent="addProductToCart" href="#" class="os-btn os-btn-black os-btn-3 mr-10">+ Add to Cart</a>
+            <a @click.prevent="addCartItem" href="#" class="os-btn os-btn-black os-btn-3 mr-10">+ Add to Cart</a>
           </div>
         </div>
       </form>
@@ -56,8 +56,7 @@
 
 <script setup lang="ts">
 import type { ProductType } from '../../types/productType';
-import { useCartStore } from '../../store/useCart';
-import { addProductToCartAPI } from '../../api';
+import { addCartItemAPI } from '../../api';
 
 interface Props {
   product: ProductType;
@@ -68,8 +67,6 @@ const props = withDefaults(defineProps<Props>(), {
   style_2: false,
 });
 
-async function addProductToCart() {
-  const res = await addProductToCartAPI();
-  console.log('🚀 ~ addProductToCart ~ res:', res);
+async function addCartItem() {
 }
 </script>

@@ -43,7 +43,7 @@
                     </div>
                     <div class="coupon2">
                       <button @click="state.clear_cart" class="os-btn os-btn-black" name="update_cart" type="button">
-                        Clear cart
+                        清空購物車
                       </button>
                     </div>
                   </div>
