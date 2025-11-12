@@ -80,42 +80,27 @@
               <div class="tab-pane fade" id="nav-order" role="tabpanel" aria-labelledby="nav-order-tab">
                 <div class="order__info">
                   <div class="order__info-top d-flex justify-content-between align-items-center">
-                    <h3 class="order__info-title">My Orders</h3>
-                    <button type="button" class="order__info-btn"><i class="fa-regular fa-trash-can"></i> Clear</button>
+                    <h3 class="order__info-title">訂單</h3>
                   </div>
                   <div class="order__list white-bg table-responsive">
                     <table class="table">
                       <thead>
                         <tr>
-                          <th scope="col">Order ID</th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Price</th>
-                          <th scope="col">Details</th>
+                          <th scope="col">訂單編號</th>
+                          <th scope="col">詳情</th>
+                          <th scope="col">總計</th>
+                          <th scope="col">創建時間</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="order__id">#3520</td>
+                        <tr v-for="order in orderList">
+                          <td class="order__id"># {{ order.ID }}</td>
                           <td>
-                            <nuxt-link href="/product-details" class="order__title"
-                              >University seminar series global.</nuxt-link
-                            >
+                            <nuxt-link :href="`/order-details/${order.ID}`" class="order__title">前往查看</nuxt-link>
                           </td>
-                          <td>$144.00</td>
+                          <td>${{ order.TotalAmount?.toLocaleString() }}</td>
                           <td>
-                            <nuxt-link href="/product-details" class="order__view-btn">View</nuxt-link>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="order__id">#2441</td>
-                          <td>
-                            <nuxt-link href="/product-details" class="order__title"
-                              >Web coding and apache basics</nuxt-link
-                            >
-                          </td>
-                          <td>$59.54</td>
-                          <td>
-                            <nuxt-link href="/product-details" class="order__view-btn">View</nuxt-link>
+                            {{ formatDateTime(order.CreatedAt) }}
                           </td>
                         </tr>
                       </tbody>
@@ -135,9 +120,11 @@
 
 <script setup lang="ts">
 import ProfileEditModal from '../common/modals/ProfileEditModal.vue';
-import { logoutAPI } from '../../api';
+import { logoutAPI, getOrderListAPI } from '../../api';
 import { toast } from 'vue3-toastify';
 import { globalUserState, clearGlobalUserState } from '../../store/globalState';
+import type { Order } from '../../types/productType';
+import { formatDateTime } from '../../utils';
 
 const router = useRouter();
 
@@ -147,4 +134,14 @@ async function logout() {
   await router.push('/shop');
   toast.success('登出成功');
 }
+
+// 訂單
+const orderList = ref<Order[]>([]);
+
+onMounted(async () => {
+  const res = await getOrderListAPI({ perPage: -1, currentPage: -1 });
+  console.log('🚀 ~ res:', res);
+  orderList.value = res.List;
+  console.log('🚀 ~ orderList.value :', orderList.value);
+});
 </script>

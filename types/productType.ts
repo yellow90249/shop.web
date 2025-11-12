@@ -29,6 +29,32 @@ export interface CartItem {
   Product: ProductType;
 }
 
+export interface Order {
+  ID: number;
+  UserID: number;
+  RecipientName: string;
+  RecipientPhone: string;
+  RecipientEmail: string;
+  RecipientAddress: string;
+  TotalAmount: number;
+  PaymentMethod: string;
+  Status: string;
+  CreatedAt: string;
+  UpdatedAt: string;
+  OrderItems: OrderItem[];
+}
+
+export interface OrderItem {
+  ID: number;
+  OrderID: number;
+  ProductID: number;
+  Quantity: number;
+  UnitPrice: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+  Product: ProductType;
+}
+
 export interface User {
   ID: number;
   Email: string;

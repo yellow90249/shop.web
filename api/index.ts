@@ -1,4 +1,4 @@
-import type { ProductType, User } from '../types/productType';
+import type { ProductType, User, Order } from '../types/productType';
 
 export async function getCategoryListAPI(): Promise<{ List: any; Total: any }> {
   return await $fetch('/api/categories?currentPage=-1&perPage=-1&name=');
@@ -57,4 +57,15 @@ export async function createOrderAPI(payload: {
   PaymentMethod: string;
 }) {
   return await $fetch(`/api/order`, { method: 'POST', body: payload });
+}
+
+export async function getOrderAPI(orderId: number): Promise<Order> {
+  return await $fetch(`/api/orders/${orderId}`);
+}
+
+export async function getOrderListAPI(payload: {
+  currentPage: number;
+  perPage: number;
+}): Promise<{ List: any; Total: any }> {
+  return await $fetch(`/api/orders?currentPage=${payload.currentPage}&perPage=${payload.perPage}`);
 }
