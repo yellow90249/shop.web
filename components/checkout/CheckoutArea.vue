@@ -86,10 +86,12 @@
 </template>
 
 <script setup lang="ts">
-import { globalUserState } from '../../store/globalState';
+import { globalUserState, setGlobalUserState } from '../../store/globalState';
 import { createOrderAPI } from '../../api';
+import { toast } from 'vue3-toastify';
 
 const form = ref({ Name: '', Address: '', Email: '', Phone: '' });
+const router = useRouter();
 
 function useUserInfo(event: Event) {
   const isChecked = (event.target as HTMLInputElement).checked;
@@ -110,14 +112,26 @@ const total = computed(() => {
 });
 
 async function createOrder() {
-  const res = await createOrderAPI({
-    RecipientName: form.value.Name,
-    RecipientAddress: form.value.Address,
-    RecipientEmail: form.value.Email,
-    RecipientPhone: form.value.Phone,
-    TotalAmount: total.value,
-    PaymentMethod: '魔法小卡',
-  });
-  console.log('🚀 ~ createOrder ~ res :', res);
+  const isFormValid = Object.values(form.value).every((value) => value !== '');
+  if (!isFormValid) {
+    toast.error('請填寫所有欄位');
+    return;
+  }
+
+  try {
+    await createOrderAPI({
+      RecipientName: form.value.Name,
+      RecipientAddress: form.value.Address,
+      RecipientEmail: form.value.Email,
+      RecipientPhone: form.value.Phone,
+      TotalAmount: total.value,
+      PaymentMethod: '魔法小卡',
+    });
+    await setGlobalUserState();
+    await router.push('/shop');
+    toast.success('建立訂單成功');
+  } catch (err) {
+    toast.error(String(err));
+  }
 }
 </script>
