@@ -2,7 +2,7 @@
   <tr>
     <td class="product-thumbnail">
       <nuxt-link :href="`/product-details/${item.ID}`">
-        <img :src="`http://localhost:7777/${item.Product.ImageURL}`" alt="" />
+        <img :src="`${apiBase}/${item.Product.ImageURL}`" alt="" />
       </nuxt-link>
     </td>
     <td class="product-name">
@@ -28,4 +28,6 @@ import type { OrderItem } from '../../types/productType';
 defineProps<{
   item: OrderItem;
 }>();
+
+const apiBase = useRuntimeConfig().public.API_BASE;
 </script>

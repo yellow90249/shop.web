@@ -2,7 +2,7 @@
   <div class="product__wrapper mb-60">
     <div class="product__thumb">
       <nuxt-link :href="`/product-details/${item.ID}`" class="w-img">
-        <img :src="`http://localhost:7777/${item.ImageURL}`" alt="product-img" />
+        <img :src="`${apiBase}/${item.ImageURL}`" alt="product-img" />
       </nuxt-link>
     </div>
     <div class="product__content p-relative">
@@ -29,6 +29,8 @@ import { toast } from 'vue3-toastify';
 import { cartButtonHandler } from '../../utils';
 
 defineProps<{ item: ProductType }>();
+
+const apiBase = useRuntimeConfig().public.API_BASE;
 
 // async function cartButtonHandler(product: ProductType) {
 //   const productAlreadyInCart = globalUserState.value.CartItems.some((item) => item.ProductID == product.ID);

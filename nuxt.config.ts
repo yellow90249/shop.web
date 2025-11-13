@@ -23,13 +23,9 @@ export default defineNuxtConfig({
     },
   },
 
-  nitro: {
-    devProxy: {
-      '/api': {
-        target: 'http://localhost:7777',
-        changeOrigin: true,
-        prependPath: true,
-      },
+  runtimeConfig: {
+    public: {
+      API_BASE: 'http://api.revengepotato.com/api',
     },
   },
 

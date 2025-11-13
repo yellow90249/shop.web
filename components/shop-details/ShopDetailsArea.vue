@@ -7,7 +7,7 @@
             <div class="product__modal-box d-flex">
               <div class="tab-content mb-20" id="product-detailsContent">
                 <div class="product__modal-img product__thumb w-img">
-                  <img :src="`http://localhost:7777/${props.product?.ImageURL}`" alt="product_img" />
+                  <img :src="`${apiBase}/${props.product?.ImageURL}`" alt="product_img" />
                   <div class="product__sale">
                     <span class="new">new</span>
                     <span class="percent">-16%</span>
@@ -30,4 +30,6 @@ import { type ProductType } from '../../types/productType';
 import ProductDetailsContent from './ProductDetailsContent.vue';
 
 const props = defineProps<{ product: ProductType }>();
+
+const apiBase = useRuntimeConfig().public.API_BASE;
 </script>
