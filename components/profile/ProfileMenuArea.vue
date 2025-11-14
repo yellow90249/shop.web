@@ -130,7 +130,7 @@ const router = useRouter();
 
 async function logout() {
   clearGlobalUserState();
-  await router.push('/shop');
+  await router.push('/product');
   toast.success('登出');
 }
 

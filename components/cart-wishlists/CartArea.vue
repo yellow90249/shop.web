@@ -81,7 +81,7 @@ const total = computed(() => {
 async function deleteAllCartItem() {
   await deleteAllCartItemAPI();
   await setGlobalUserState();
-  await router.push('/shop');
+  await router.push('/product');
   toast.success('清空購物車');
 }
 </script>

@@ -31,7 +31,7 @@ async function login(Email: string, Password: string) {
       localStorage.setItem('token', res);
     }
     await setGlobalUserState();
-    await router.push('/shop');
+    await router.push('/product');
     toast.success(`登入成功`);
   } catch (err) {
     toast.error(String(err));

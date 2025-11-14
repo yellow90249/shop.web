@@ -128,7 +128,7 @@ async function createOrder() {
       PaymentMethod: '魔法小卡',
     });
     await setGlobalUserState();
-    await router.push('/shop');
+    await router.push('/product');
     toast.success('建立訂單成功');
   } catch (err) {
     toast.error(String(err));
