@@ -13,8 +13,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Outstock - Clean, Minimal eCommerce Vue Nuxt 3 Template',
-      // link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
+      title: '土豆',
       script: [
         {
           src: 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js',
@@ -26,6 +25,17 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       API_BASE: 'http://api.revengepotato.com/api',
+      // API_BASE: '/api',
+    },
+  },
+
+  nitro: {
+    // 開發用
+    devProxy: {
+      '/api': {
+        target: 'http://localhost:8000/api',
+        changeOrigin: true,
+      },
     },
   },
 
