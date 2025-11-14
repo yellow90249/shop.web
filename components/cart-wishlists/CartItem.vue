@@ -24,16 +24,16 @@
       <span class="amount">${{ (cartItem.Product.Price * cartItem.Quantity)?.toLocaleString() }}</span>
     </td>
     <td class="product-remove">
-      <a href="#">
+      <div @click="deleteCartItem(cartItem.ID)" style="cursor: pointer">
         <i class="fa fa-times"></i>
-      </a>
+      </div>
     </td>
   </tr>
 </template>
 
 <script setup lang="ts">
 import type { CartItem } from '../../types/productType';
-import { updateCartItemQuantityAPI } from '../../api';
+import { updateCartItemQuantityAPI, deleteCartItemAPI } from '../../api';
 import { setGlobalUserState } from '../../store/globalState';
 
 const apiBase = useRuntimeConfig().public.API_BASE;
@@ -51,6 +51,12 @@ async function decreaseAmountHandler() {
 
 async function increaseAmountHandler() {
   await updateCartItemQuantityAPI({ cartItemId: props.cartItem.ID, Quantity: Number(props.cartItem.Quantity) + 1 });
+  await setGlobalUserState();
+}
+
+async function deleteCartItem(cartItemId: number) {
+  const res = await deleteCartItemAPI(cartItemId);
+  console.log('🚀 ~ deleteCartItem ~ res:', res);
   await setGlobalUserState();
 }
 </script>

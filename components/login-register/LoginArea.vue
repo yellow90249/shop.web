@@ -27,9 +27,12 @@ const router = useRouter();
 async function login(Email: string, Password: string) {
   try {
     const res = await loginAPI({ Email, Password });
+    if (res) {
+      localStorage.setItem('token', res);
+    }
     await setGlobalUserState();
     await router.push('/shop');
-    toast.success(`${res.Name}登入成功`);
+    toast.success(`登入成功`);
   } catch (err) {
     toast.error(String(err));
   }

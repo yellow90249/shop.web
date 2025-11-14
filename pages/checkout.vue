@@ -2,13 +2,7 @@
   <layout :transparent="true">
     <breadcrumb-area title="付款" subtitle="付款" />
     <client-only>
-      <div v-if="state.cart_products.length === 0" class="text-center pt-100 pb-100">
-        <h3>No items found in cart to checkout</h3>
-        <nuxt-link class="os-btn os-btn-black mt-15" to="/shop"> Shop Now </nuxt-link>
-      </div>
-      <div v-if="state.cart_products.length > 0">
-        <checkout-area />
-      </div>
+      <checkout-area />
     </client-only>
   </layout>
 </template>

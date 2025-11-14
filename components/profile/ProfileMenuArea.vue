@@ -120,7 +120,7 @@
 
 <script setup lang="ts">
 import ProfileEditModal from '../common/modals/ProfileEditModal.vue';
-import { logoutAPI, getOrderListAPI } from '../../api';
+import { getOrderListAPI } from '../../api';
 import { toast } from 'vue3-toastify';
 import { globalUserState, clearGlobalUserState } from '../../store/globalState';
 import type { Order } from '../../types/productType';
@@ -129,10 +129,9 @@ import { formatDateTime } from '../../utils';
 const router = useRouter();
 
 async function logout() {
-  const res = await logoutAPI();
   clearGlobalUserState();
   await router.push('/shop');
-  toast.success('登出成功');
+  toast.success('登出');
 }
 
 // 訂單

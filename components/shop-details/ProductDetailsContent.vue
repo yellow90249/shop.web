@@ -44,8 +44,8 @@
             </div>
           </div>
           <div class="pro-cart-btn ml-20">
-            <a @click.prevent="cartButtonHandler(props.product)" href="#" class="os-btn os-btn-black os-btn-3 mr-10"
-              >+ 加入購物車</a
+            <a @click.prevent="cartButtonHandler(props.product)" href="#" class="os-btn os-btn-black os-btn-3 mr-10">
+              + 加入購物車</a
             >
           </div>
         </div>
@@ -56,9 +56,9 @@
 
 <script setup lang="ts">
 import type { ProductType } from '../../types/productType';
-import { addCartItemAPI, updateCartItemQuantityAPI } from '../../api';
+import { addCartItemAPI } from '../../api';
 import { toast } from 'vue3-toastify';
-import { setGlobalUserState, globalUserState } from '../../store/globalState';
+import { setGlobalUserState } from '../../store/globalState';
 
 const props = defineProps<{ product: ProductType }>();
 const amount = ref(1);
@@ -70,28 +70,14 @@ function decreaseAmountHandler() {
 }
 
 async function cartButtonHandler(product: ProductType) {
-  const productAlreadyInCart = globalUserState.value.CartItems.some((item) => item.ProductID == product.ID);
-  if (productAlreadyInCart) {
-    updateCartItemQuantity(product);
-  } else {
-    addCartItem(product);
-  }
+  addCartItem(product);
+
   toast.success('加入購物車');
 }
 
 async function addCartItem(product: ProductType) {
-  const res = await addCartItemAPI({ ProductID: product.ID, Quantity: 1, UnitPrice: product.Price });
+  const res = await addCartItemAPI({ ProductID: product.ID, Quantity: amount.value, UnitPrice: product.Price });
   console.log('🚀 ~ addCartItem ~ res:', res);
-  await setGlobalUserState();
-}
-
-async function updateCartItemQuantity(product: ProductType) {
-  const cartItem = globalUserState.value.CartItems.find((item) => item.ProductID == product.ID);
-  const res = await updateCartItemQuantityAPI({
-    cartItemId: cartItem?.ID!,
-    Quantity: cartItem?.Quantity! + amount.value,
-  });
-  console.log('🚀 ~ updateCartItemQuantity ~ res:', res);
   await setGlobalUserState();
 }
 </script>

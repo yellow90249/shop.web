@@ -16,6 +16,10 @@ import { globalUserState, setGlobalUserState } from '../store/globalState';
 import { toast } from 'vue3-toastify';
 
 export async function cartButtonHandler(product: ProductType) {
+  if (!localStorage.getItem('token')) {
+    toast.error('請先登入');
+    return;
+  }
   const productAlreadyInCart = globalUserState.value.CartItems.some((item) => item.ProductID == product.ID);
   if (productAlreadyInCart) {
     const res = await updateCartItemQuantity(product);

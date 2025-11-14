@@ -36,4 +36,5 @@ export async function clearGlobalUserState() {
     UpdatedAt: '',
     CartItems: [],
   };
+  localStorage.removeItem('token');
 }
