@@ -11,6 +11,6 @@ import BreadcrumbArea from '../components/common/breadcrumb/BreadcrumbArea.vue';
 import LoginArea from '../components/login-register/LoginArea.vue';
 
 useHead({
-  title: '登入 - 復仇土豆',
+  title: '登入',
 });
 </script>

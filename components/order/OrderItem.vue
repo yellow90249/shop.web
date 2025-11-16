@@ -24,10 +24,11 @@
 
 <script setup lang="ts">
 import type { OrderItem } from '../../types/productType';
+import { getApiUrl } from '../../api';
 
 defineProps<{
   item: OrderItem;
 }>();
 
-const apiBase = useRuntimeConfig().public.API_BASE;
+const apiBase = getApiUrl();
 </script>
