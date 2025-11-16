@@ -13,7 +13,7 @@
               <div class="slider__content slider__content-3 pl-250">
                 <h2 v-html="item.title"></h2>
                 <p v-html="item.subtile"></p>
-                <nuxt-link href="/shop" class="os-btn os-btn-2 hero-slider-btn">
+                <nuxt-link href="/prodcut" class="os-btn os-btn-2 hero-slider-btn">
                   Discover now
                 </nuxt-link> 
               </div>

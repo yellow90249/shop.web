@@ -14,17 +14,17 @@
           >
             <div class="banner__item mb-30 p-relative">
               <div class="banner__thumb fix">
-                <nuxt-link href="/shop" class="w-img">
+                <nuxt-link href="/product" class="w-img">
                   <img :src="item.img" alt="banner" />
                 </nuxt-link>
               </div>
               <div class="banner__content p-absolute transition-3">
                 <h5>
-                  <nuxt-link href="/shop" >
+                  <nuxt-link href="/product" >
                     <span v-html="item.parentTitle"></span>
                   </nuxt-link>
                 </h5>
-                <nuxt-link href="/shop" class="link-btn">Discover now</nuxt-link>
+                <nuxt-link href="/product" class="link-btn">Discover now</nuxt-link>
               </div>
             </div>
           </div>

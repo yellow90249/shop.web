@@ -24,8 +24,9 @@
 <script setup lang="ts">
 import { type ProductType } from '../../types/productType';
 import { cartButtonHandler } from '../../utils';
+import { getApiUrl } from '../../api';
 
 defineProps<{ item: ProductType }>();
 
-const apiBase = useRuntimeConfig().public.API_BASE;
+const apiBase = getApiUrl();
 </script>

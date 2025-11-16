@@ -6,7 +6,7 @@
               <client-only>
                 <div v-if="state.compare.length === 0" class='text-center'>
                   <h3>No Compare product</h3>
-                  <nuxt-link class="os-btn os-btn-black mt-20" to="/shop">
+                  <nuxt-link class="os-btn os-btn-black mt-20" to="/product">
                      Shop Now
                   </nuxt-link>
                 </div>

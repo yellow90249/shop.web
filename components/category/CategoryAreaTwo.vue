@@ -7,7 +7,7 @@
           <div class="banner__content-5">
               <h5>{{item.parentTitle}}</h5>
               <p>{{item.smDesc}}</p>
-              <nuxt-link href="/shop" class="os-btn-5">Shop Now</nuxt-link>
+            <nuxt-link href="/prodcut" class="os-btn-5">Shop Now</nuxt-link>
           </div>
       </div>
   </div>

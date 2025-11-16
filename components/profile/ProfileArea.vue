@@ -37,6 +37,7 @@
 
 <script setup lang="ts">
 import { globalUserState } from '../../store/globalState';
+import { getApiUrl } from '../../api';
 
-const apiBase = useRuntimeConfig().public.API_BASE;
+const apiBase = getApiUrl();
 </script>

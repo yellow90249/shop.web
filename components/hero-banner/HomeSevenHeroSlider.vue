@@ -15,7 +15,7 @@
                       <span :class="`${item.meta?'meta':''}`">{{item.sm_title}}</span>
                       <h2 v-html="item.title"></h2>
                       <p v-html="item.subtitle"></p>
-                      <nuxt-link href="/shop" class="os-btn-4 hero-slider-btn">Shop Now</nuxt-link>
+                      <nuxt-link href="/product" class="os-btn-4 hero-slider-btn">Shop Now</nuxt-link>
                   </div>
               </div>
           </div>

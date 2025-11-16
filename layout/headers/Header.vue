@@ -82,7 +82,11 @@ const handleOffcanvas = () => {
 onMounted(async () => {
   window.addEventListener('scroll', handleSticky);
   if (!!localStorage.getItem('token')) {
-    await setGlobalUserState();
+    try {
+      await setGlobalUserState();
+    } catch (err) {
+      localStorage.removeItem('token');
+    }
   }
 });
 

@@ -28,8 +28,9 @@
 <script setup lang="ts">
 import { type ProductType } from '../../types/productType';
 import ProductDetailsContent from './ProductDetailsContent.vue';
+import { getApiUrl } from '../../api';
 
 const props = defineProps<{ product: ProductType }>();
 
-const apiBase = useRuntimeConfig().public.API_BASE;
+const apiBase = getApiUrl();
 </script>

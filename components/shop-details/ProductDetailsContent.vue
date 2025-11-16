@@ -44,7 +44,7 @@
             </div>
           </div>
           <div class="pro-cart-btn ml-20">
-            <a @click.prevent="cartButtonHandler(props.product)" href="#" class="os-btn os-btn-black os-btn-3 mr-10">
+            <a @click.prevent="addCartItem(props.product)" href="#" class="os-btn os-btn-black os-btn-3 mr-10">
               + 加入購物車</a
             >
           </div>
@@ -69,15 +69,15 @@ function decreaseAmountHandler() {
   }
 }
 
-async function cartButtonHandler(product: ProductType) {
-  addCartItem(product);
-
-  toast.success('加入購物車');
-}
-
 async function addCartItem(product: ProductType) {
-  const res = await addCartItemAPI({ ProductID: product.ID, Quantity: amount.value, UnitPrice: product.Price });
-  console.log('🚀 ~ addCartItem ~ res:', res);
-  await setGlobalUserState();
+  try {
+    const res = await addCartItemAPI({ ProductID: product.ID, Quantity: amount.value, UnitPrice: product.Price });
+    console.log('🚀 ~ addCartItem ~ res:', res);
+    await setGlobalUserState();
+    toast.success('加入購物車');
+  } catch (err) {
+    // toast.error(err);
+    toast.error('請先等入');
+  }
 }
 </script>

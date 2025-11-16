@@ -38,9 +38,15 @@ export async function cartButtonHandler(product: ProductType) {
 }
 
 async function addCartItem(product: ProductType): Promise<any> {
-  const res = await addCartItemAPI({ ProductID: product.ID, Quantity: 1, UnitPrice: product.Price });
-  await setGlobalUserState();
-  return res;
+  try {
+    const res = await addCartItemAPI({ ProductID: product.ID, Quantity: 1, UnitPrice: product.Price });
+    console.log('🚀 ~ addCartItem ~ res:', res);
+    await setGlobalUserState();
+    return res;
+  } catch (err) {
+    console.log('🚀 ~ addCartItem ~ err:', err);
+    return err;
+  }
 }
 
 async function updateCartItemQuantity(product: ProductType): Promise<any> {

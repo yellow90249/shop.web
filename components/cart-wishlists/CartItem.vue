@@ -33,10 +33,10 @@
 
 <script setup lang="ts">
 import type { CartItem } from '../../types/productType';
-import { updateCartItemQuantityAPI, deleteCartItemAPI } from '../../api';
+import { updateCartItemQuantityAPI, deleteCartItemAPI, getApiUrl } from '../../api';
 import { setGlobalUserState } from '../../store/globalState';
 
-const apiBase = useRuntimeConfig().public.API_BASE;
+const apiBase = getApiUrl();
 
 const props = defineProps<{
   cartItem: CartItem;

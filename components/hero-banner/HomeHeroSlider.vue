@@ -15,7 +15,7 @@
               <div class="slider__content">
                 <h2 v-html="item.title"></h2>
                 <p v-html="item.subtile"></p>
-                <nuxt-link href="/shop" class="os-btn os-btn-2 hero-slider-btn">
+                <nuxt-link href="/product" class="os-btn os-btn-2 hero-slider-btn">
                  前往查看
                 </nuxt-link>
               </div>

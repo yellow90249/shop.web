@@ -58,10 +58,10 @@
 </template>
 
 <script setup lang="ts">
-import { deleteCartItemAPI } from '../../../api';
+import { deleteCartItemAPI, getApiUrl } from '../../../api';
 import { globalUserState, setGlobalUserState } from '../../../store/globalState';
 
-const apiBase = useRuntimeConfig().public.API_BASE;
+const apiBase = getApiUrl();
 const total = computed(() => {
   return globalUserState.value.CartItems.reduce((sum, item) => sum + item.UnitPrice * item.Quantity, 0);
 });

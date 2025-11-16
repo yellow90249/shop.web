@@ -1,8 +1,9 @@
 import type { ProductType, User, Order } from '../types/productType';
 
 export function getApiUrl() {
-  return useRuntimeConfig().public.API_BASE;
+  return useRuntimeConfig().public.apiUrl;
 }
+
 const useApi = () => {
   return $fetch.create({
     onRequest({ request, options, error }) {

@@ -24,8 +24,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      API_BASE: 'https://api.revengepotato.com/api',
-      // API_BASE: 'http://localhost:8000/api',
+      apiUrl: process.env.NUXT_PUBLIC_API_URL || '',
     },
   },
 

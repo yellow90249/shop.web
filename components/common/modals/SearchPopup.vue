@@ -15,12 +15,12 @@
                         </div>
                         <div class="header__search-categories">
                             <ul class="search-category">
-                                <li><nuxt-link href="/shop">All Categories</nuxt-link></li>
-                                <li><nuxt-link href="/shop">Accessories</nuxt-link></li>
-                                <li><nuxt-link href="/shop">Chair</nuxt-link></li>
-                                <li><nuxt-link href="/shop">Tablet</nuxt-link></li>
-                                <li><nuxt-link href="/shop">Men</nuxt-link></li>
-                                <li><nuxt-link href="/shop">Women</nuxt-link></li>
+                                <li><nuxt-link href="/product">All Categories</nuxt-link></li>
+                                <li><nuxt-link href="/product">Accessories</nuxt-link></li>
+                                <li><nuxt-link href="/product">Chair</nuxt-link></li>
+                                <li><nuxt-link href="/product">Tablet</nuxt-link></li>
+                                <li><nuxt-link href="/product">Men</nuxt-link></li>
+                                <li><nuxt-link href="/product">Women</nuxt-link></li>
                             </ul>
                         </div>
                         <div class="header__search-input p-relative">

@@ -6,7 +6,7 @@
             <div class="col-12">
               <div v-if="state.wishlists.length === 0" class='text-center'>
                   <h3>No wishlist product</h3>
-                  <nuxt-link class="os-btn os-btn-black mt-20" to="/shop">
+                  <nuxt-link class="os-btn os-btn-black mt-20" to="/product">
                      Shop Now
                   </nuxt-link>
                 </div>

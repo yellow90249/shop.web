@@ -108,7 +108,7 @@ export default defineComponent({
         title: "Shop",
         dropdown: true,
         dropdownMenu: [
-          { link: "/shop", title: "Standard Shop Page" },
+          { link: "/product", title: "Standard Shop Page" },
           { link: "/shop-right", title: "Shop Right Sidebar" },
           { link: "/shop-4-col", title: "Shop 4 Column" },
           { link: "/shop-3-col", title: "Shop 3 Column" },
