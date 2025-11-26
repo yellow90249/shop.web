@@ -1,5 +1,6 @@
 services:
   nuxt-app:
+    container_name: my_nuxt_app
     build:
       context: .
       dockerfile: Dockerfile
