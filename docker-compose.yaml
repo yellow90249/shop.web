@@ -1,6 +1,7 @@
 services:
   nuxt-app:
-    container_name: my_nuxt_app
+    image: verycoolgary/shop.web
+    container_name: web_container
     build:
       context: .
       dockerfile: Dockerfile
