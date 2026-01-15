@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DEPLOY_PATH: /home/cicd-robot/app/web
+      DEPLOY_PATH: /home/cicd-robot/deploy/web
 
     steps:
       - name: Checkout

@@ -1,10 +1,8 @@
 services:
   nuxt-app:
+    build: .
     image: verycoolgary/shop.web
     container_name: web_container
-    build:
-      context: .
-      dockerfile: Dockerfile
     ports:
       - '8002:8002'
     environment:
