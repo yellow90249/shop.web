@@ -2,7 +2,7 @@ services:
   nuxt-app:
     build: .
     image: verycoolgary/shop.web
-    container_name: web_container
+    container_name: shop-web
     ports:
       - '8002:8002'
     environment:
