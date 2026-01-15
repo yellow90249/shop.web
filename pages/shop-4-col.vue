@@ -11,6 +11,6 @@ import BreadcrumbArea from '../components/common/breadcrumb/BreadcrumbArea.vue';
 import ShopFourCol from '../components/shop/ShopFourCol.vue';
 
 useHead({
-  title: '商品 | 復仇土豆商城',
+  title: '商品 | 土豆商城',
 });
 </script>
