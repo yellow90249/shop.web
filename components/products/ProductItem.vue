@@ -2,7 +2,7 @@
   <div class="product__wrapper mb-60">
     <div class="product__thumb">
       <nuxt-link :href="`/product-details/${item.ID}`" class="w-img">
-        <img :src="`${apiBase}/${item.ImageURL}`" alt="product-img" />
+        <img :src="`${assetUrl}/${item.ImageURL}`" alt="product-img" />
       </nuxt-link>
     </div>
     <div class="product__content p-relative">
@@ -24,9 +24,7 @@
 <script setup lang="ts">
 import { type ProductType } from '../../types/productType';
 import { cartButtonHandler } from '../../utils';
-import { getApiUrl } from '../../api';
+import { assetUrl } from '../../api';
 
 defineProps<{ item: ProductType }>();
-
-const apiBase = getApiUrl();
 </script>

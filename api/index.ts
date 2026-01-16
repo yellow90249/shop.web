@@ -1,8 +1,8 @@
 import type { ProductType, User, Order } from '../types/productType';
 
-export function getApiUrl() {
-  return useRuntimeConfig().public.apiUrl;
-}
+// export const apiBase = 'https://api.potatoshop.tw';
+export const apiBase = 'http://127.0.0.1:8000';
+export const assetUrl = 'https://storage.googleapis.com/potato-shop';
 
 const useApi = () => {
   return $fetch.create({
@@ -21,7 +21,7 @@ export async function signupAPI(payload: { Name: string; Email: string; Password
   formData.append('Password', payload.Password);
   formData.append('UploadedFile', payload.UploadedFile);
 
-  return await api(`${getApiUrl()}/user/signup`, {
+  return await api(`${apiBase}/api/user/signup`, {
     method: 'POST',
     body: formData,
   });
@@ -29,7 +29,7 @@ export async function signupAPI(payload: { Name: string; Email: string; Password
 
 export async function getCategoryListAPI(): Promise<{ List: any; Total: any }> {
   const api = useApi();
-  return await api(`${getApiUrl()}/categories?currentPage=-1&perPage=-1&name=`);
+  return await api(`${apiBase}/api/categories?currentPage=-1&perPage=-1&name=`);
 }
 
 export async function getProductListAPI(payload: {
@@ -40,41 +40,39 @@ export async function getProductListAPI(payload: {
 }): Promise<{ List: any; Total: any }> {
   const api = useApi();
   return await api(
-    `${getApiUrl()}/products?currentPage=${payload.currentPage}&perPage=${payload.perPage}&name=${
-      payload.name
-    }&categoryId=${payload.categoryId}`
+    `${apiBase}/api/products?currentPage=${payload.currentPage}&perPage=${payload.perPage}&name=${payload.name}&categoryId=${payload.categoryId}`
   );
 }
 
 export async function getProductAPI(productId: number): Promise<ProductType> {
   const api = useApi();
-  return await api(`${getApiUrl()}/products/${productId}`);
+  return await api(`${apiBase}/api/products/${productId}`);
 }
 
 export async function loginAPI(payload: { Email: string; Password: string }): Promise<string> {
   const api = useApi();
-  return await api(`${getApiUrl()}/user/login`, { method: 'POST', body: payload });
+  return await api(`${apiBase}/api/user/login`, { method: 'POST', body: payload });
 }
 
 export async function logoutAPI(): Promise<User> {
   const api = useApi();
-  return await api(`${getApiUrl()}/logout`, { method: 'POST' });
+  return await api(`${apiBase}/api/logout`, { method: 'POST' });
 }
 
 export async function getUserAPI(): Promise<User> {
   const api = useApi();
-  return await api(`${getApiUrl()}/me`);
+  return await api(`${apiBase}/api/me`);
 }
 
 // 購物車
 export async function addCartItemAPI(payload: { ProductID: number; Quantity: number; UnitPrice: number }) {
   const api = useApi();
-  return await api(`${getApiUrl()}/cart/items`, { method: 'POST', body: payload });
+  return await api(`${apiBase}/api/cart/items`, { method: 'POST', body: payload });
 }
 
 export async function updateCartItemQuantityAPI(payload: { cartItemId: number; Quantity: number }) {
   const api = useApi();
-  return await api(`${getApiUrl()}/cart/items/${payload.cartItemId}`, {
+  return await api(`${apiBase}/api/cart/items/${payload.cartItemId}`, {
     method: 'PUT',
     body: { Quantity: payload.Quantity },
   });
@@ -82,12 +80,12 @@ export async function updateCartItemQuantityAPI(payload: { cartItemId: number; Q
 
 export async function deleteCartItemAPI(cartItemId: number) {
   const api = useApi();
-  return await api(`${getApiUrl()}/cart/items/${cartItemId}`, { method: 'DELETE' });
+  return await api(`${apiBase}/api/cart/items/${cartItemId}`, { method: 'DELETE' });
 }
 
 export async function deleteAllCartItemAPI() {
   const api = useApi();
-  return await api(`${getApiUrl()}/cart/items/all`, { method: 'DELETE' });
+  return await api(`${apiBase}/api/cart/items/all`, { method: 'DELETE' });
 }
 
 // 訂單
@@ -100,12 +98,12 @@ export async function createOrderAPI(payload: {
   PaymentMethod: string;
 }) {
   const api = useApi();
-  return await api(`${getApiUrl()}/order`, { method: 'POST', body: payload });
+  return await api(`${apiBase}/api/order`, { method: 'POST', body: payload });
 }
 
 export async function getOrderAPI(orderId: number): Promise<Order> {
   const api = useApi();
-  return await api(`${getApiUrl()}/orders/${orderId}`);
+  return await api(`${apiBase}/api/orders/${orderId}`);
 }
 
 export async function getOrderListAPI(payload: {
@@ -113,5 +111,5 @@ export async function getOrderListAPI(payload: {
   perPage: number;
 }): Promise<{ List: any; Total: any }> {
   const api = useApi();
-  return await api(`${getApiUrl()}/orders?currentPage=${payload.currentPage}&perPage=${payload.perPage}`);
+  return await api(`${apiBase}/api/orders?currentPage=${payload.currentPage}&perPage=${payload.perPage}`);
 }

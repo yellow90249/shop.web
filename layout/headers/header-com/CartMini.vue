@@ -22,7 +22,7 @@
           <li v-for="(item, i) in globalUserState.CartItems" :key="i">
             <div class="cart-img f-left">
               <nuxt-link :href="`/product-details/${item.ID}`">
-                <img :src="`${apiBase}/${item.Product.ImageURL}`" alt="" />
+                <img :src="`${assetUrl}/${item.Product.ImageURL}`" alt="" />
               </nuxt-link>
             </div>
             <div class="cart-content f-left text-left">
@@ -58,10 +58,9 @@
 </template>
 
 <script setup lang="ts">
-import { deleteCartItemAPI, getApiUrl } from '../../../api';
+import { deleteCartItemAPI, assetUrl } from '../../../api';
 import { globalUserState, setGlobalUserState } from '../../../store/globalState';
 
-const apiBase = getApiUrl();
 const total = computed(() => {
   return globalUserState.value.CartItems.reduce((sum, item) => sum + item.UnitPrice * item.Quantity, 0);
 });

@@ -2,7 +2,7 @@
   <tr>
     <td class="product-thumbnail">
       <nuxt-link :href="`/product-details/${item.ID}`">
-        <img :src="`${apiBase}/${item.Product.ImageURL}`" alt="" />
+        <img :src="`${assetUrl}/${item.Product.ImageURL}`" alt="" />
       </nuxt-link>
     </td>
     <td class="product-name">
@@ -24,11 +24,9 @@
 
 <script setup lang="ts">
 import type { OrderItem } from '../../types/productType';
-import { getApiUrl } from '../../api';
+import { assetUrl } from '../../api';
 
 defineProps<{
   item: OrderItem;
 }>();
-
-const apiBase = getApiUrl();
 </script>

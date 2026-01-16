@@ -2,7 +2,7 @@
   <tr>
     <td class="product-thumbnail">
       <nuxt-link :href="`/product-details/${cartItem.ID}`">
-        <img :src="`${apiBase}/${cartItem.Product.ImageURL}`" alt="" />
+        <img :src="`${assetUrl}/${cartItem.Product.ImageURL}`" alt="" />
       </nuxt-link>
     </td>
     <td class="product-name">
@@ -33,10 +33,8 @@
 
 <script setup lang="ts">
 import type { CartItem } from '../../types/productType';
-import { updateCartItemQuantityAPI, deleteCartItemAPI, getApiUrl } from '../../api';
+import { updateCartItemQuantityAPI, deleteCartItemAPI, assetUrl } from '../../api';
 import { setGlobalUserState } from '../../store/globalState';
-
-const apiBase = getApiUrl();
 
 const props = defineProps<{
   cartItem: CartItem;
