@@ -44,7 +44,11 @@
             </div>
           </div>
           <div class="pro-cart-btn ml-20">
-            <a @click.prevent="addCartItem(props.product)" href="#" class="os-btn os-btn-black os-btn-3 mr-10">
+            <a
+              @click.prevent="cartButtonHandler(props.product, amount)"
+              href="#"
+              class="os-btn os-btn-black os-btn-3 mr-10"
+            >
               + 加入購物車</a
             >
           </div>
@@ -56,9 +60,7 @@
 
 <script setup lang="ts">
 import type { ProductType } from '../../types/productType';
-import { addCartItemAPI } from '../../api';
-import { toast } from 'vue3-toastify';
-import { setGlobalUserState } from '../../store/globalState';
+import { cartButtonHandler } from '../../utils';
 
 const props = defineProps<{ product: ProductType }>();
 const amount = ref(1);
@@ -66,18 +68,6 @@ const amount = ref(1);
 function decreaseAmountHandler() {
   if (amount.value > 1) {
     amount.value--;
-  }
-}
-
-async function addCartItem(product: ProductType) {
-  try {
-    const res = await addCartItemAPI({ ProductID: product.ID, Quantity: amount.value, UnitPrice: product.Price });
-    console.log('🚀 ~ addCartItem ~ res:', res);
-    await setGlobalUserState();
-    toast.success('加入購物車');
-  } catch (err) {
-    // toast.error(err);
-    toast.error('請先等入');
   }
 }
 </script>

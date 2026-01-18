@@ -67,12 +67,12 @@ export async function getUserAPI(): Promise<User> {
 // 購物車
 export async function addCartItemAPI(payload: { ProductID: number; Quantity: number; UnitPrice: number }) {
   const api = useApi();
-  return await api(`${apiBase}/api/cart/items`, { method: 'POST', body: payload });
+  return await api(`${apiBase}/api/cart/item`, { method: 'POST', body: payload });
 }
 
 export async function updateCartItemQuantityAPI(payload: { cartItemId: number; Quantity: number }) {
   const api = useApi();
-  return await api(`${apiBase}/api/cart/items/${payload.cartItemId}`, {
+  return await api(`${apiBase}/api/cart/item/${payload.cartItemId}`, {
     method: 'PUT',
     body: { Quantity: payload.Quantity },
   });
@@ -80,12 +80,12 @@ export async function updateCartItemQuantityAPI(payload: { cartItemId: number; Q
 
 export async function deleteCartItemAPI(cartItemId: number) {
   const api = useApi();
-  return await api(`${apiBase}/api/cart/items/${cartItemId}`, { method: 'DELETE' });
+  return await api(`${apiBase}/api/cart/item/${cartItemId}`, { method: 'DELETE' });
 }
 
 export async function deleteAllCartItemAPI() {
   const api = useApi();
-  return await api(`${apiBase}/api/cart/items/all`, { method: 'DELETE' });
+  return await api(`${apiBase}/api/cart/item/all`, { method: 'DELETE' });
 }
 
 // 訂單
@@ -103,7 +103,7 @@ export async function createOrderAPI(payload: {
 
 export async function getOrderAPI(orderId: number): Promise<Order> {
   const api = useApi();
-  return await api(`${apiBase}/api/orders/${orderId}`);
+  return await api(`${apiBase}/api/order/${orderId}`);
 }
 
 export async function getOrderListAPI(payload: {
@@ -111,5 +111,5 @@ export async function getOrderListAPI(payload: {
   perPage: number;
 }): Promise<{ List: any; Total: any }> {
   const api = useApi();
-  return await api(`${apiBase}/api/orders?currentPage=${payload.currentPage}&perPage=${payload.perPage}`);
+  return await api(`${apiBase}/api/me/orders?currentPage=${payload.currentPage}&perPage=${payload.perPage}`);
 }

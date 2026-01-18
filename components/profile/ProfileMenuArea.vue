@@ -57,22 +57,22 @@
                       <h4>{{ globalUserState.Name }}</h4>
                     </div>
                     <div class="profile__info-item">
-                      <p>地址</p>
-                      <h4>
-                        {{ globalUserState.Address }}
-                      </h4>
-                    </div>
-                    <div class="profile__info-item">
-                      <p>電話</p>
-                      <h4>
-                        {{ globalUserState.Phone }}
-                      </h4>
-                    </div>
-                    <div class="profile__info-item">
                       <p>信箱</p>
                       <h4>
                         {{ globalUserState.Email }}
                       </h4>
+                      <div class="profile__info-item">
+                        <p>電話</p>
+                        <h4>
+                          {{ globalUserState.Phone }}
+                        </h4>
+                      </div>
+                      <div class="profile__info-item">
+                        <p>地址</p>
+                        <h4>
+                          {{ globalUserState.Address }}
+                        </h4>
+                      </div>
                     </div>
                   </div>
                 </div>

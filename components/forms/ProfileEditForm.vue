@@ -33,9 +33,9 @@ import * as yup from 'yup';
 const schema = yup.object({
   name: yup.string().required().label('Name'),
   email: yup.string().required().email().label('Email'),
-  phone: yup.string().required().min(11).label('Phone'),
+  phone: yup.string().required().min(10).label('Phone'),
   address: yup.string().required().min(3).label('Message'),
-});
+}); 
 
 function onSubmit(values: object, { resetForm }: { resetForm: () => void }) {
   alert(JSON.stringify(values, null, 2));

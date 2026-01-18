@@ -63,14 +63,34 @@ const svgString = computed(() => {
   return toSvg(formData.value.email, 50);
 });
 
-function svgStringToFile(svgString: string): File {
-  const blob = new Blob([svgString], { type: 'image/svg+xml' });
-  return new File([blob], 'avatar.svg', { type: 'image/svg+xml' });
+function svgToPngFile(svgString: string, size: number): Promise<File> {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+
+    canvas.width = size;
+    canvas.height = size;
+
+    img.onload = () => {
+      ctx?.drawImage(img, 0, 0, size, size);
+      canvas.toBlob((blob) => {
+        if (blob) {
+          resolve(new File([blob], 'avatar.png', { type: 'image/png' }));
+        } else {
+          reject(new Error('轉換 PNG 失敗'));
+        }
+      }, 'image/png');
+    };
+
+    img.onerror = () => reject(new Error('載入 SVG 失敗'));
+    img.src = 'data:image/svg+xml;base64,' + btoa(svgString);
+  });
 }
 
 async function onSubmit() {
   try {
-    const file = svgStringToFile(svgString.value);
+    const file = await svgToPngFile(svgString.value, 50);
     const res = await signupAPI({
       Name: formData.value.name,
       Email: formData.value.email,
@@ -83,9 +103,5 @@ async function onSubmit() {
     console.log('🚀 ~ onSubmit ~ err:', err);
     toast.error(`註冊失敗`);
   }
-  // Reset form
-  // formData.name = '';
-  // formData.email = '';
-  // formData.password = '';
 }
 </script>

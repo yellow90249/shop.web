@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="add-cart p-absolute transition-3">
-        <a @click.prevent="cartButtonHandler(item)" style="cursor: pointer">+ 加入購物車</a>
+        <a @click.prevent="cartButtonHandler(item, 1)" style="cursor: pointer">+ 加入購物車</a>
       </div>
     </div>
   </div>

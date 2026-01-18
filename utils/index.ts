@@ -15,20 +15,20 @@ import { addCartItemAPI, updateCartItemQuantityAPI } from '../api';
 import { globalUserState, setGlobalUserState } from '../store/globalState';
 import { toast } from 'vue3-toastify';
 
-export async function cartButtonHandler(product: ProductType) {
+export async function cartButtonHandler(product: ProductType, amount: number) {
   if (!localStorage.getItem('token')) {
     toast.error('請先登入');
     return;
   }
   const productAlreadyInCart = globalUserState.value.CartItems.some((item) => item.ProductID == product.ID);
   if (productAlreadyInCart) {
-    const res = await updateCartItemQuantity(product);
+    const res = await updateCartItemQuantity(product, amount);
     if (res != 'success') {
       toast.error('請先登入');
       return;
     }
   } else {
-    const res = await addCartItem(product);
+    const res = await addCartItem(product, amount);
     if (res != 'success') {
       toast.error('請先登入');
       return;
@@ -37,9 +37,9 @@ export async function cartButtonHandler(product: ProductType) {
   toast.success('加入購物車');
 }
 
-async function addCartItem(product: ProductType): Promise<any> {
+async function addCartItem(product: ProductType, amount: number): Promise<any> {
   try {
-    const res = await addCartItemAPI({ ProductID: product.ID, Quantity: 1, UnitPrice: product.Price });
+    const res = await addCartItemAPI({ ProductID: product.ID, Quantity: amount, UnitPrice: product.Price });
     console.log('🚀 ~ addCartItem ~ res:', res);
     await setGlobalUserState();
     return res;
@@ -49,9 +49,9 @@ async function addCartItem(product: ProductType): Promise<any> {
   }
 }
 
-async function updateCartItemQuantity(product: ProductType): Promise<any> {
+async function updateCartItemQuantity(product: ProductType, amount: number): Promise<any> {
   const cartItem = globalUserState.value.CartItems.find((item) => item.ProductID == product.ID);
-  const res = await updateCartItemQuantityAPI({ cartItemId: cartItem?.ID!, Quantity: cartItem?.Quantity! + 1 });
+  const res = await updateCartItemQuantityAPI({ cartItemId: cartItem?.ID!, Quantity: cartItem?.Quantity! + amount });
   await setGlobalUserState();
   return res;
 }
