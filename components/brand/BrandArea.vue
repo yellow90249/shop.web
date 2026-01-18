@@ -15,7 +15,7 @@
         <div style="display: flex; flex-direction: column; justify-content: center">
           <h1 style="margin-bottom: 12px">企鵝先生</h1>
           <p style="margin: 0; font-size: 18px">
-            土豆先生的朋友，喜歡提魚披薩。
+            土豆先生的朋友，受雇當物流司機。
           </p>
         </div>
         <img style="margin: auto" src="~/assets/img/brand/penguin.png" alt="" />

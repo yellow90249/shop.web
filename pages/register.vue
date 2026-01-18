@@ -26,11 +26,11 @@
 
                 <div class="mb-20">
                   <label for="pass">密碼 <span>**</span></label>
-                  <input v-model="formData.password"  type="password" placeholder="輸入密碼..." />
+                  <input v-model="formData.password" type="password" placeholder="輸入密碼..." />
                 </div>
 
                 <div class="mt-10"></div>
-                <button type="submit" class="os-btn w-100">登入</button>
+                <button type="submit" class="os-btn w-100">註冊</button>
                 <div class="or-divide"><span>or</span></div>
                 <nuxt-link href="/login" class="os-btn os-btn-black w-100">登入</nuxt-link>
               </form>
@@ -47,6 +47,7 @@ import Layout from '../layout/Layout.vue';
 import BreadcrumbArea from '../components/common/breadcrumb/BreadcrumbArea.vue';
 import { toSvg } from 'jdenticon';
 import { signupAPI } from '../api';
+import { toast } from 'vue3-toastify';
 
 useHead({
   title: '註冊',
@@ -68,14 +69,20 @@ function svgStringToFile(svgString: string): File {
 }
 
 async function onSubmit() {
-  const file = svgStringToFile(svgString.value);
-  const res = await signupAPI({
-    Name: formData.value.name,
-    Email: formData.value.email,
-    Password: formData.value.password,
-    UploadedFile: file,
-  });
-  console.log('🚀 ~ onSubmit ~ res:', res);
+  try {
+    const file = svgStringToFile(svgString.value);
+    const res = await signupAPI({
+      Name: formData.value.name,
+      Email: formData.value.email,
+      Password: formData.value.password,
+      UploadedFile: file,
+    });
+    console.log('🚀 ~ onSubmit ~ res:', res);
+    toast.success(`註冊成功`);
+  } catch (err) {
+    console.log('🚀 ~ onSubmit ~ err:', err);
+    toast.error(`註冊失敗`);
+  }
   // Reset form
   // formData.name = '';
   // formData.email = '';

@@ -46,7 +46,7 @@ export async function getProductListAPI(payload: {
 
 export async function getProductAPI(productId: number): Promise<ProductType> {
   const api = useApi();
-  return await api(`${apiBase}/api/products/${productId}`);
+  return await api(`${apiBase}/api/product/${productId}`);
 }
 
 export async function loginAPI(payload: { Email: string; Password: string }): Promise<string> {
