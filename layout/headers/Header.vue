@@ -32,9 +32,7 @@
                         <i class="ion-bag"></i> 購物車
                         <span v-if="globalUserState.ID != 0">({{ globalUserState.CartItems.length }})</span>
                       </a>
-                      <!-- cart mini start -->
                       <cart-mini />
-                      <!-- cart mini end -->
                     </li>
                   </ul>
                 </div>
